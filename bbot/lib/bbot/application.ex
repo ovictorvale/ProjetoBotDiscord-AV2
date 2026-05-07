@@ -10,7 +10,8 @@ defmodule Bbot.Application do
     children = [
       # Starts a worker by calling: Bbot.Worker.start_link(arg)
       # {Bbot.Worker, arg}
-      Bbot
+     Bbot.Command.Store.BbotServer,
+    Bbot
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

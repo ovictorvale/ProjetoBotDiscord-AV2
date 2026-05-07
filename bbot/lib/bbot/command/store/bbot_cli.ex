@@ -1,18 +1,15 @@
 defmodule Bbot.Command.Store.BbotCli do
-  alias Bbot.Command.Store.BbotList
-  alias Bbot.Command.Store.BbotStore
+  alias Bbot.Command.Store.BbotServer
 
   def handle(msg) do
-    tarefas = BbotStore.load()
-
     case msg.content do
       "!lembretes" ->
-        BbotList.list(tarefas)
+        BbotServer.listar()
 
       "!lembrar " <> texto ->
-        updated = BbotList.add(tarefas, String.trim(texto))
-        BbotStore.save(updated)
-        "Tarefa adicionada com sucesso!"
+        texto
+        |> String.trim()
+        |> BbotServer.adicionar()
 
       "!lembrar" ->
         "Use o comando assim: !lembrar <sua tarefa>"

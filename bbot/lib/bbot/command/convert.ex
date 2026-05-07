@@ -1,11 +1,11 @@
 defmodule Bbot.Command.Convert do
   def handle_convert(msg) do
     case String.split(msg.content, " ") do
-      ["!dollar"] -> "Use: !dollar <valor em reais>"
+      ["!convert"] -> "Use: !convert <valor> <origem> <destino>. Ex: !convert 100 BRL USD"
 
-      ["!dollar", number, origem, destino] -> convert(number, origem, destino)
+      ["!convert", number, origem, destino] -> convert(number, origem, destino)
 
-      _ -> "Comando inválido. Use: !dollar 100 BRL USD"
+      _ -> "Comando inválido. Use: !convert 100 BRL USD"
     end
   end
 

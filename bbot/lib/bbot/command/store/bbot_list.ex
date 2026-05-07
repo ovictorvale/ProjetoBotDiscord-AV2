@@ -4,7 +4,7 @@ defmodule Bbot.Command.Store.BbotList do
 
   def add(tarefas, tarefa) do
     task = %{id: new_id(), tarefa: tarefa}
-    tarefas++ [task]
+    tarefas ++ [task]
   end
 
 

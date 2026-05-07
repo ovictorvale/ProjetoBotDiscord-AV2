@@ -1,215 +1,179 @@
-# Bbot
 
-**TODO: Add description**
+Este projeto é um bot para Discord desenvolvido em Elixir, utilizando o framework Nostrum.
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `bbot` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:bbot, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/bbot>.
-
-
-# Bbot
-
-Bot para Discord desenvolvido em Elixir utilizando o framework Nostrum, com integração de múltiplas APIs REST e persistência de dados em JSON.
-
----
-
-## Descrição
-
-O Bbot foi desenvolvido como atividade da disciplina de Programação Funcional, com o objetivo de aplicar conceitos como:
-
-* Comunicação com APIs REST (HTTPoison)
-* Manipulação de dados com Enum e Map
-* Pattern Matching
-* Persistência de dados em JSON
-* Organização modular do código
-
----
+O objetivo do projeto é praticar os conceitos vistos na disciplina de Programação Funcional, como uso de módulos, pattern matching, consumo de APIs REST, pipe operator, GenServer, Supervisor e persistência de dados em JSON.
 
 ## Tecnologias utilizadas
 
-* Elixir
-* Nostrum (Discord API)
-* HTTPoison (requisições HTTP)
-* Jason (manipulação de JSON)
+- Elixir
+- Nostrum
+- HTTPoison
+- Jason
+- GenServer
+- Supervisor
 
----
+## Sobre o projeto
 
-## Configuração
+O Bbot recebe comandos enviados pelos usuários no Discord e responde de acordo com a funcionalidade chamada.
 
-### 1. Clonar o projeto
+Foram implementados comandos simples, comandos com parâmetros, comandos que consomem APIs externas e comandos com persistência de dados em arquivo JSON.
 
-```bash
-git clone <link-do-repositorio>
-cd bbot
-```
+## Como configurar o token
 
----
+O token do bot não deve ficar escrito diretamente no código.
 
-### 2. Configurar o token do Discord
-
-No terminal:
-
-#### Linux / Mac:
+Para configurar o token no Windows PowerShell, use:
 
 ```bash
-export DISCORD_TOKEN="seu_token_aqui"
+$env:DISCORD_BOT_TOKEN="seu_token_aqui"
 ```
 
-#### Windows (PowerShell):
+No Linux ou macOS, use:
 
-```powershell
-$env:DISCORD_TOKEN="seu_token_aqui"
+```bash
+export DISCORD_BOT_TOKEN="seu_token_aqui"
 ```
 
----
+No arquivo de configuração, o token é lido pela variável de ambiente:
 
-### 3. Instalar dependências
+```elixir
+config :nostrum,
+  token: System.get_env("DISCORD_BOT_TOKEN")
+```
+
+## Como instalar as dependências
+
+Dentro da pasta do projeto, execute:
 
 ```bash
 mix deps.get
 ```
 
----
+Depois compile o projeto:
 
-### 4. Executar o bot
+```bash
+mix compile
+```
+
+## Como rodar o bot
+
+Para iniciar o bot no Discord, execute:
 
 ```bash
 mix run --no-halt
 ```
 
----
+Também é possível rodar com o terminal interativo do Elixir:
 
-## Comandos disponíveis
+```bash
+iex -S mix
+```
 
-### Sem parâmetro
+## Comandos do bot
+
+### Ping
 
 ```text
 !ping
 ```
 
-Resposta: `!pong`
+Retorna uma resposta simples do bot.
 
----
+### Fact
 
-### Com um parâmetro
+```text
+!fact
+```
+
+Busca uma curiosidade aleatória em uma API externa.
+
+### Fox
+
+```text
+!fox
+```
+
+Retorna uma imagem aleatória de raposa.
+
+### Clima
 
 ```text
 !clima fortaleza
 ```
 
-Retorna o clima atual da cidade.
+Consulta o clima atual da cidade informada.
+
+### Convert
+
+```text
+!convert 100 BRL USD
+```
+
+Converte um valor entre duas moedas.
+
+### Pokémon
 
 ```text
 !pokemon pikachu
 ```
 
-Retorna informações do Pokémon.
+Busca informações básicas sobre um Pokémon.
 
----
-
-### Com dois ou mais parâmetros
-
-```text
-!dollar 100 BRL USD
-```
-
-Converte valores entre moedas.
+### Filme
 
 ```text
 !filme batman 1989
 ```
 
-Retorna informações sobre um filme.
+Busca informações básicas sobre um filme.
 
----
-
-### Persistência em JSON
-
-```text
-!lembrar estudar elixir
-```
-
-Salva um lembrete.
-
-```text
-!lembretes
-```
-
-Lista todos os lembretes salvos.
-
----
-
-### Combinação de APIs
+### Curiosidade
 
 ```text
 !curiosidade fortaleza
 ```
 
-Retorna informações da cidade e o clima atual, combinando duas APIs.
+Busca informações de uma cidade utilizando duas APIs.
 
----
+### Lembrar
+
+```text
+!lembrar estudar Elixir
+```
+
+Salva um lembrete em um arquivo JSON local.
+
+### Lembretes
+
+```text
+!lembretes
+```
+
+Lista os lembretes salvos anteriormente.
 
 ## Persistência de dados
 
-Os lembretes são armazenados em um arquivo local:
+O comando de lembretes utiliza persistência em JSON.
 
-```text
-bbot_store.json
-```
+Quando o bot é iniciado, o GenServer carrega os lembretes salvos no arquivo JSON. Quando um novo lembrete é adicionado, o estado interno é atualizado e o arquivo JSON é salvo novamente.
 
-Esse arquivo permite que os dados sejam mantidos mesmo após reiniciar o bot.
+Assim, mesmo que o bot seja encerrado e iniciado novamente, os lembretes continuam salvos.
 
----
+## Organização do código
 
-## Estrutura do projeto
+O projeto foi dividido em módulos para facilitar a organização e a explicação.
 
-```text
-lib/
-├── bbot.ex
-├── bbot/command/
-│   ├── clima.ex
-│   ├── convert.ex
-│   ├── filme.ex
-│   ├── pokemon.ex
-│   ├── fact.ex
-│   ├── fox.ex
-│   └── store/
-│       ├── bbot_store.ex
-│       ├── bbot_list.ex
-│       └── bbot_cli.ex
-```
+O módulo `Bbot` recebe os eventos do Discord e direciona os comandos.
 
----
+O módulo `Bbot.Application` inicia a aplicação e supervisiona os processos.
 
-## Exemplos de uso
+Os módulos dentro de `Bbot.Command` são responsáveis pelos comandos do bot.
 
-```text
-!ping
-!clima fortaleza
-!pokemon gengar
-!dollar 100 BRL USD
-!filme batman 1989
-!lembrar estudar elixir
-!lembretes
-!curiosidade fortaleza
-```
+Os módulos dentro de `Bbot.Command.Store` são responsáveis pela parte dos lembretes, incluindo o GenServer, a lista de tarefas e a leitura e escrita no arquivo JSON.
 
----
+## Gitignore
 
+O projeto utiliza um arquivo `.gitignore` para evitar o envio de arquivos gerados automaticamente pelo Elixir e pelo Mix.
 
-## Autor
+Arquivos e pastas como `_build`, `deps`, `doc`, `tmp` e arquivos de crash da VM não devem ser enviados para o GitHub.
 
-Victor Menezes do Vale

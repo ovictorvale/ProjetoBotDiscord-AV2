@@ -12,8 +12,8 @@ defmodule Bbot.Command.Store.BbotStore do
     end
   end
 
-  def save(tarefa) do
-    tarefa
+  def save(tarefas) do
+    tarefas
     |>Jason.encode!(pretty: true)
     |>then(&File.write!(@file_path, &1))
   end
