@@ -27,7 +27,7 @@ defmodule Bbot.Command.Convert do
         "R$ #{valor_numero} = US$ #{Float.round(valor_dolar, 2)}"
 
       :error ->
-        "Digite um número válido. Ex: !dollar 100 BRL USD"
+        "Digite um número válido. Ex: !convert 100 BRL USD"
     end
   end
 end

@@ -16,27 +16,15 @@ defmodule Bbot do
     responder(msg, Bbot.Command.Fox.handle_fox(msg))
   end
 
-  def handle_event({:MESSAGE_CREATE, %{content: "!clima"} = msg, _ws}) do
+  def handle_event({:MESSAGE_CREATE, %{content: "!clima" <> _resto} = msg, _ws}) do
     responder(msg, Bbot.Command.Clima.handle_clima(msg))
   end
 
-  def handle_event({:MESSAGE_CREATE, %{content: "!clima " <> _cidade} = msg, _ws}) do
-    responder(msg, Bbot.Command.Clima.handle_clima(msg))
-  end
-
-  def handle_event({:MESSAGE_CREATE, %{content: "!convert"} = msg, _ws}) do
+  def handle_event({:MESSAGE_CREATE, %{content: "!convert" <> _resto} = msg, _ws}) do
     responder(msg, Bbot.Command.Convert.handle_convert(msg))
   end
 
-  def handle_event({:MESSAGE_CREATE, %{content: "!convert " <> _resto} = msg, _ws}) do
-    responder(msg, Bbot.Command.Convert.handle_convert(msg))
-  end
-
-  def handle_event({:MESSAGE_CREATE, %{content: "!lembrar"} = msg, _ws}) do
-    responder(msg, BbotCli.handle(msg))
-  end
-
-  def handle_event({:MESSAGE_CREATE, %{content: "!lembrar " <> _texto} = msg, _ws}) do
+  def handle_event({:MESSAGE_CREATE, %{content: "!lembrar" <> _resto} = msg, _ws}) do
     responder(msg, BbotCli.handle(msg))
   end
 
@@ -44,27 +32,15 @@ defmodule Bbot do
     responder(msg, BbotCli.handle(msg))
   end
 
-  def handle_event({:MESSAGE_CREATE, %{content: "!pokemon"} = msg, _ws}) do
+  def handle_event({:MESSAGE_CREATE, %{content: "!pokemon" <> _resto} = msg, _ws}) do
     responder(msg, Bbot.Command.Pokemon.handle_pokemon(msg))
   end
 
-  def handle_event({:MESSAGE_CREATE, %{content: "!pokemon " <> _nome} = msg, _ws}) do
-    responder(msg, Bbot.Command.Pokemon.handle_pokemon(msg))
-  end
-
-  def handle_event({:MESSAGE_CREATE, %{content: "!filme"} = msg, _ws}) do
+  def handle_event({:MESSAGE_CREATE, %{content: "!filme" <> _resto} = msg, _ws}) do
     responder(msg, Bbot.Command.Filme.handle_filme(msg))
   end
 
-  def handle_event({:MESSAGE_CREATE, %{content: "!filme " <> _resto} = msg, _ws}) do
-    responder(msg, Bbot.Command.Filme.handle_filme(msg))
-  end
-
-  def handle_event({:MESSAGE_CREATE, %{content: "!curiosidade"} = msg, _ws}) do
-    responder(msg, Bbot.Command.Curiosidade.handle_curiosidade(msg))
-  end
-
-  def handle_event({:MESSAGE_CREATE, %{content: "!curiosidade " <> _cidade} = msg, _ws}) do
+  def handle_event({:MESSAGE_CREATE, %{content: "!curiosidade" <> _resto} = msg, _ws}) do
     responder(msg, Bbot.Command.Curiosidade.handle_curiosidade(msg))
   end
 

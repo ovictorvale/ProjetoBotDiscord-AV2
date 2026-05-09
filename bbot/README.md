@@ -177,3 +177,4 @@ O projeto utiliza um arquivo `.gitignore` para evitar o envio de arquivos gerado
 
 Arquivos e pastas como `_build`, `deps`, `doc`, `tmp` e arquivos de crash da VM não devem ser enviados para o GitHub.
 
+    
